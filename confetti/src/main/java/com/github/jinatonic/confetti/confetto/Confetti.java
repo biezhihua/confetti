@@ -25,12 +25,12 @@ import android.view.VelocityTracker;
 import android.view.animation.Interpolator;
 
 /**
- * Abstract class that represents a single confetto on the screen. This class holds all of the
- * internal states for the confetto to help it animate.
+ * Abstract class that represents a single confetti on the screen. This class holds all of the
+ * internal states for the confetti to help it animate.
  *
  * <p>All of the configured states are in milliseconds, e.g. pixels per millisecond for velocity.
  */
-public abstract class Confetto {
+public abstract class Confetti {
     private static final int MAX_ALPHA = 255;
     private static final long RESET_ANIMATION_INITIAL_DELAY = -1;
 
@@ -71,10 +71,10 @@ public abstract class Confetto {
     private float overrideDeltaX, overrideDeltaY;
 
     /**
-     * This method should be called after all of the confetto's state variables are configured
-     * and before the confetto gets animated.
+     * This method should be called after all of the confetti's state variables are configured
+     * and before the confetti gets animated.
      *
-     * @param bound the space in which the confetto can display in.
+     * @param bound the space in which the confetti can display in.
      */
     public void prepare(Rect bound) {
         this.bound = bound;
@@ -148,12 +148,12 @@ public abstract class Confetto {
     }
 
     /**
-     * @return the width of the confetto.
+     * @return the width of the confetti.
      */
     public abstract int getWidth();
 
     /**
-     * @return the height of the confetto.
+     * @return the height of the confetti.
      */
     public abstract int getHeight();
 
@@ -229,7 +229,7 @@ public abstract class Confetto {
     }
 
     /**
-     * Reset this confetto object's internal states so that it can be re-used.
+     * Reset this confetti object's internal states so that it can be re-used.
      */
     public void reset() {
         initialDelay = 0;
@@ -267,10 +267,10 @@ public abstract class Confetto {
     }
 
     /**
-     * Update the confetto internal state based on the provided passed time.
+     * Update the confetti internal state based on the provided passed time.
      *
      * @param passedTime time since the beginning of the animation.
-     * @return whether this particular confetto is still animating.
+     * @return whether this particular confetti is still animating.
      */
     public boolean applyUpdate(long passedTime) {
         if (initialDelay == RESET_ANIMATION_INITIAL_DELAY) {
@@ -320,7 +320,7 @@ public abstract class Confetto {
     }
 
     /**
-     * Primary method for rendering this confetto on the canvas.
+     * Primary method for rendering this confetti on the canvas.
      *
      * @param canvas the canvas to draw on.
      */
@@ -346,23 +346,23 @@ public abstract class Confetto {
 
     /**
      * Subclasses need to override this method to optimize for the way to draw the appropriate
-     * confetto on the canvas.
+     * confetti on the canvas.
      *
      * @param canvas the canvas to draw on.
      * @param matrix an identity matrix to use for draw manipulations.
      * @param paint the paint to perform canvas draw operations on. This paint has already been
      *   configured via {@link #configurePaint(Paint)}.
-     * @param x the x position of the confetto relative to the canvas.
-     * @param y the y position of the confetto relative to the canvas.
-     * @param rotation the rotation (in degrees) to draw the confetto.
-     * @param percentAnimated the percentage [0f, 1f] of animation progress for this confetto.
+     * @param x the x position of the confetti relative to the canvas.
+     * @param y the y position of the confetti relative to the canvas.
+     * @param rotation the rotation (in degrees) to draw the confetti.
+     * @param percentAnimated the percentage [0f, 1f] of animation progress for this confetti.
      */
     protected abstract void drawInternal(Canvas canvas, Matrix matrix, Paint paint, float x,
             float y, float rotation, float percentAnimated);
 
 
     /**
-     * Helper methods to set all of the necessary values for the confetto.
+     * Helper methods to set all of the necessary values for the confetti.
      */
 
     public void setInitialDelay(long val) {

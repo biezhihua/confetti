@@ -26,12 +26,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Utils {
+
     private static final Paint PAINT = new Paint();
+
     static {
         PAINT.setStyle(Paint.Style.FILL);
     }
 
     private static Interpolator defaultAlphaInterpolator;
+
     public static Interpolator getDefaultAlphaInterpolator() {
         if (defaultAlphaInterpolator == null) {
             defaultAlphaInterpolator = new Interpolator() {

@@ -22,8 +22,8 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.view.ViewGroup;
 
-import com.github.jinatonic.confetti.confetto.BitmapConfetto;
-import com.github.jinatonic.confetti.confetto.Confetto;
+import com.github.jinatonic.confetti.confetto.BitmapConfetti;
+import com.github.jinatonic.confetti.confetto.Confetti;
 
 import java.util.List;
 import java.util.Random;
@@ -47,7 +47,7 @@ public class CommonConfetti {
      * @see #rainingConfetti(ViewGroup, ConfettiSource, int[]) but with the default confetti source
      * to be the top of the confetti container viewgroup.
      *
-     * @param container the container viewgroup to host the confetti animation.
+     * @param container the container viewGroup to host the confetti animation.
      * @param colors the set of colors to colorize the confetti bitmaps.
      * @return the created common confetti object.
      */
@@ -62,7 +62,7 @@ public class CommonConfetti {
     /**
      * Configures a confetti manager that has confetti falling from the provided confetti source.
      *
-     * @param container the container viewgroup to host the confetti animation.
+     * @param container the container viewGroup to host the confetti animation.
      * @param confettiSource the source of the confetti animation.
      * @param colors the set of colors to colorize the confetti bitmaps.
      * @return the created common confetti object.
@@ -78,7 +78,7 @@ public class CommonConfetti {
      * Configures a confetti manager that has confetti exploding out in all directions from the
      * provided x and y coordinates.
      *
-     * @param container the container viewgroup to host the confetti animation.
+     * @param container the container viewGroup to host the confetti animation.
      * @param x the x coordinate of the explosion source.
      * @param y the y coordinate of the explosion source.
      * @param colors the set of colors to colorize the confetti bitmaps.
@@ -132,13 +132,13 @@ public class CommonConfetti {
                 .animate();
     }
 
-    private ConfettoGenerator getDefaultGenerator(int[] colors) {
+    private ConfettiGenerator getDefaultGenerator(int[] colors) {
         final List<Bitmap> bitmaps = Utils.generateConfettiBitmaps(colors, defaultConfettiSize);
         final int numBitmaps = bitmaps.size();
-        return new ConfettoGenerator() {
+        return new ConfettiGenerator() {
             @Override
-            public Confetto generateConfetto(Random random) {
-                return new BitmapConfetto(bitmaps.get(random.nextInt(numBitmaps)));
+            public Confetti generateConfetti(Random random) {
+                return new BitmapConfetti(bitmaps.get(random.nextInt(numBitmaps)));
             }
         };
     }
@@ -146,7 +146,7 @@ public class CommonConfetti {
     private void configureRainingConfetti(ViewGroup container, ConfettiSource confettiSource,
             int[] colors) {
         final Context context = container.getContext();
-        final ConfettoGenerator generator = getDefaultGenerator(colors);
+        final ConfettiGenerator generator = getDefaultGenerator(colors);
 
         confettiManager = new ConfettiManager(context, generator, confettiSource, container)
                 .setVelocityX(0, defaultVelocitySlow)
@@ -158,7 +158,7 @@ public class CommonConfetti {
 
     private void configureExplosion(ViewGroup container, int x, int y, int[] colors) {
         final Context context = container.getContext();
-        final ConfettoGenerator generator = getDefaultGenerator(colors);
+        final ConfettiGenerator generator = getDefaultGenerator(colors);
         final ConfettiSource confettiSource = new ConfettiSource(x, y);
 
         confettiManager = new ConfettiManager(context, generator, confettiSource, container)

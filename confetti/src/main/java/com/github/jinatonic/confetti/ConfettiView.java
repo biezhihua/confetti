@@ -25,7 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-import com.github.jinatonic.confetti.confetto.Confetto;
+import com.github.jinatonic.confetti.confetto.Confetti;
 
 import java.util.List;
 
@@ -35,11 +35,11 @@ import java.util.List;
  * it will automatically remove itself from the parent.
  */
 public class ConfettiView extends View implements View.OnLayoutChangeListener {
-    private List<Confetto> confetti;
+    private List<Confetti> confetti;
     private boolean terminated;
 
     private boolean touchEnabled;
-    private Confetto draggedConfetto;
+    private Confetti mDraggedConfetti;
 
     public static ConfettiView newInstance(Context context) {
         final ConfettiView confettiView = new ConfettiView(context, null);
@@ -64,7 +64,7 @@ public class ConfettiView extends View implements View.OnLayoutChangeListener {
      *
      * @param confetti the list of confetti to be animated.
      */
-    public void bind(List<Confetto> confetti) {
+    public void bind(List<Confetti> confetti) {
         this.confetti = confetti;
     }
 
@@ -128,8 +128,8 @@ public class ConfettiView extends View implements View.OnLayoutChangeListener {
 
         if (!terminated) {
             canvas.save();
-            for (Confetto confetto : this.confetti) {
-                confetto.draw(canvas);
+            for (Confetti confetti : this.confetti) {
+                confetti.draw(canvas);
             }
             canvas.restore();
         }
@@ -141,25 +141,25 @@ public class ConfettiView extends View implements View.OnLayoutChangeListener {
         if (touchEnabled) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    for (Confetto confetto : confetti) {
-                        if (confetto.onTouchDown(event)) {
-                            draggedConfetto = confetto;
+                    for (Confetti confetti : this.confetti) {
+                        if (confetti.onTouchDown(event)) {
+                            mDraggedConfetti = confetti;
                             handled = true;
                             break;
                         }
                     }
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    if (draggedConfetto != null) {
-                        draggedConfetto.onTouchMove(event);
+                    if (mDraggedConfetti != null) {
+                        mDraggedConfetti.onTouchMove(event);
                         handled = true;
                     }
                     break;
                 case MotionEvent.ACTION_UP:
                 case MotionEvent.ACTION_CANCEL:
-                    if (draggedConfetto != null) {
-                        draggedConfetto.onTouchUp(event);
-                        draggedConfetto = null;
+                    if (mDraggedConfetti != null) {
+                        mDraggedConfetti.onTouchUp(event);
+                        mDraggedConfetti = null;
                         handled = true;
                     }
                     break;

@@ -6,7 +6,7 @@
 What is Confetti?
 =================
 
-*Confetti (plural) vs confetto (singular)*
+*Confetti (plural) vs confetti (singular)*
 
 [Confetti](https://en.wikipedia.org/wiki/Confetti) is a high-performance, easily-configurable
 particle system library that can animate any set of objects through space. You can specify your
@@ -48,11 +48,11 @@ CommonConfetti.rainingConfetti(container, new int[] { Color.BLACK })
 More custom usage
 -----------------
 
-First, we need to define what our individual [confetto](http://www.dictionary.com/browse/confetto)
-is through the `ConfettoGenerator`. Each call of `generateConfetto` must generate a brand new
-`Confetto` object (the `ConfettiManager` will recycle the generated confetto as needed so you
-might see fewer and fewer calls to `generateConfetto` as the animation goes on). We pass in a
-`Random` into `generateConfetto` in case you want to randomly generate a confetto from a list
+First, we need to define what our individual [confetti](http://www.dictionary.com/browse/confetti)
+is through the `ConfettoGenerator`. Each call of `generateConfetti` must generate a brand new
+`Confetto` object (the `ConfettiManager` will recycle the generated confetti as needed so you
+might see fewer and fewer calls to `generateConfetti` as the animation goes on). We pass in a
+`Random` into `generateConfetti` in case you want to randomly generate a confetti from a list
 of possible confetti.
 
 A simple `ConfettoGenerator` might look like this:
@@ -64,9 +64,9 @@ final List<Bitmap> allPossibleConfetti = constructBitmapsForConfetti();
 // Utils.generateConfettiBitmaps(new int[] { Color.BLACK }, 20 /* size */);
 
 final int numConfetti = allPossibleConfetti.size();
-final ConfettoGenerator confettoGenerator = new ConfettoGenerator() {
+final ConfettoGenerator confettiGenerator = new ConfettoGenerator() {
     @Override
-    public Confetto generateConfetto(Random random) {
+    public Confetto generateConfetti(Random random) {
         final Bitmap bitmap = allPossibleConfetti.get(random.nextInt(numConfetti));
         return new BitmapConfetto(bitmap);
     }
@@ -86,7 +86,7 @@ Now you are ready! construct your `ConfettiManager`, configure the animation to 
 then call `animate()`!
 
 ```java
-new ConfettiManager(context, confettoGenerator, confettiSource, container)
+new ConfettiManager(context, confettiGenerator, confettiSource, container)
         .setEmissionDuration(1000)
         .setEmissionRate(100)
         .setVelocityX(20, 10)
@@ -115,7 +115,7 @@ time attributes (such as `ttl` and `emissionDuration`) are in milliseconds.
 You will notice that most of the setters for the physical attributes (e.g. velocity, acceleration,
 rotation) can take in either one argument for the actual value or two arguments. The second
 argument allows you to specify a random deviation if you want to randomize the behavior among
-all of the generated confetto.
+all of the generated confetti.
 
 For example:
 
@@ -123,14 +123,14 @@ For example:
 confettiManager.setVelocityX(200f, 50f);
 ```
 
-The generated confetto will have an initial X velocity of anywhere between `200 - 50` or `150` and
+The generated confetti will have an initial X velocity of anywhere between `200 - 50` or `150` and
 `200 + 50` or `250`, eventually distributed.
 
 `enableFadeOut(Interpolator fadeOutInterpolator)` is another interesting method. You can specify
-that fade out occurs as a confetto nears its boundary (either reaching the physical boundary
+that fade out occurs as a confetti nears its boundary (either reaching the physical boundary
 specified in `bound` (this is either the entirety of `container` or set in `setBound`) or reaching
-`ttl`). The interpolator essentially takes in a value between 0 and 1 (0 means that the confetto
-is at its source, 1 means the confetto is at its bound) and outputs an alpha value between 0 and 1
+`ttl`). The interpolator essentially takes in a value between 0 and 1 (0 means that the confetti
+is at its source, 1 means the confetti is at its bound) and outputs an alpha value between 0 and 1
 (0 is transparent and 1 is opaque). This way, we allow you to have the full power of specifying
 how the fade out occurs.
 
@@ -155,7 +155,7 @@ Custom Confetto
 It's very easy to define a custom `Confetto` (see `BitmapConfetto`). You simply need to extend
 from the `Confetto` class and implement `drawInternal`. The function will provide you with a
 `Canvas` to draw on as well as a work `Matrix` and `Paint` so you don't have to allocate objects
-in the draw path. You then need to essentially draw your confetto however you want onto the canvas
+in the draw path. You then need to essentially draw your confetti however you want onto the canvas
 using the specified `x`, `y`, and `rotation`.
 
 The cool part is that you can interpret `rotation` however you want. Instead of an angle in degrees,
